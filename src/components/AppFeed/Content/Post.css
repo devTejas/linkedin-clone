@@ -1,0 +1,73 @@
+.post {
+  margin-top: 10px;
+}
+
+.authorBody {
+  display: flex;
+  align-items: center;
+  margin-bottom: 14px;
+  font-size: 10px;
+  letter-spacing: 1.4px;
+}
+
+.MuiAvatar-root {
+  width: 25px !important;
+  height: 25px !important;
+  margin-right: 5px;
+}
+
+.authorAbout {
+}
+
+.postBody {
+}
+
+.postBody__text > p {
+  font-size: 14px;
+  margin-bottom: 10px;
+  overflow-wrap: anywhere;
+}
+
+.mediaSection {
+  margin-bottom: 10px;
+  display: flex;
+}
+
+.mediaSection > img {
+  margin-right: 2px;
+}
+
+.likesSection {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.likesSection > p {
+  margin-left: 4px;
+  color: rgb(100, 100, 100);
+}
+
+.commentSection {
+  margin-bottom: 10px;
+}
+
+.postAction {
+  display: flex;
+}
+
+.postActionOption {
+  color: gray;
+  font-size: 12px;
+  text-align: center;
+  margin-right: 35px;
+  cursor: pointer;
+}
+
+.postActionOption > svg {
+  font-size: 1.2rem;
+}
+
+.postActionOption:hover {
+  color: black;
+}

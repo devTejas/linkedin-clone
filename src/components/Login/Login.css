@@ -1,0 +1,141 @@
+/* .login {
+  display: grid;
+  place-items: center;
+  margin-left: auto;
+  margin-right: auto;
+  padding-top: 100px;
+  padding-bottom: 100px;
+}
+
+.login > img {
+  object-fit: contain;
+  height: 70px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.login > form {
+  display: flex;
+  flex-direction: column;
+}
+
+.login > form > label > input {
+  width: 350px;
+  height: 50px;
+  border: 1px solid black !important;
+  padding-left: 10px;
+  margin-bottom: 10px;
+  border-radius: 5px;
+}
+
+.login > form > .userAction > input[type="submit"] {
+  width: 350px;
+  height: 50px;
+  font-size: large;
+  color: #fff;
+  background-color: #0074b1;
+  border-radius: 5px;
+} */
+
+.login {
+  margin: 10px auto;
+  /* background-color: #9d4edd; */
+}
+
+.appLogo {
+  display: flex;
+  justify-content: center;
+}
+
+.login > .appLogo > img {
+  width: 50px;
+  height: 50px;
+}
+
+.login > form {
+  display: flex;
+  flex-direction: column;
+  margin: 10px auto;
+}
+
+.login > form > label {
+  font-size: 20px;
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid black;
+  background-color: #7b2cbf;
+  color: white;
+
+  display: flex;
+  flex-direction: row;
+}
+
+.login > form > label > input {
+  flex: 1;
+}
+
+.userAction {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: large;
+  font-weight: bolder;
+  color: #fff;
+}
+
+.userAction > input[type="submit"] {
+  width: 365px;
+  height: 50px;
+  padding: 10px;
+  background-color: #240046;
+  border: none;
+  border-radius: 5px;
+  font-size: large;
+  font-weight: bolder;
+  color: #fff;
+  cursor: pointer;
+}
+
+.userAction > p {
+  cursor: pointer;
+}
+
+@media only screen and (max-width: 576px) {
+  .login {
+    max-width: 100vw;
+    padding: 0 30px;
+  }
+
+  .userAction {
+    display: block;
+  }
+
+  .userAction > input[type="submit"] {
+    width: 100%;
+    margin-bottom: 10px;
+  }
+}
+
+@media (max-width: 767px) and (min-width: 576px) {
+  .login {
+    max-width: 540px;
+  }
+
+  .userAction {
+    display: block;
+  }
+
+  .userAction > input[type="submit"] {
+    width: 100%;
+    margin-bottom: 10px;
+  }
+}
+
+@media (min-width: 768px) {
+  .login {
+    max-width: 720px;
+  }
+}
+
+/* @media screen and (max-width: 770px) {
+} */

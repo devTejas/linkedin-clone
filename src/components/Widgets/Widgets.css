@@ -1,0 +1,19 @@
+.recent {
+  text-align: left;
+  border: 1px solid lightgray;
+  border-radius: 10px;
+  margin: 4px 0px;
+  padding: 4px;
+}
+
+.recent > h2 {
+  color: black;
+}
+
+.recent > p {
+  padding: 4px 8px;
+}
+
+.recent > p:hover {
+  color: black;
+}
