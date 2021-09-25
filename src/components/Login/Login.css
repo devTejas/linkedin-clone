@@ -38,8 +38,7 @@
 } */
 
 .login {
-  margin: 10px auto;
-  /* background-color: #9d4edd; */
+  margin: 50px auto 0px auto;
 }
 
 .appLogo {
@@ -55,10 +54,10 @@
 .login > form {
   display: flex;
   flex-direction: column;
-  margin: 10px auto;
+  margin: 10px auto 0px auto;
 }
 
-.login > form > label {
+.labelInput {
   font-size: 20px;
   padding: 10px;
   margin-bottom: 10px;
@@ -67,11 +66,20 @@
   color: white;
 
   display: flex;
-  flex-direction: row;
 }
 
-.login > form > label > input {
+.labelInput > input {
   flex: 1;
+  padding-left: 20px;
+  width: 100%;
+}
+
+.labelInput > input[type="file"] {
+  background: transparent;
+}
+
+.requiredField {
+  color: red;
 }
 
 .userAction {
@@ -80,20 +88,26 @@
   align-items: center;
   font-size: large;
   font-weight: bolder;
-  color: #fff;
 }
 
-.userAction > input[type="submit"] {
-  width: 365px;
+.userAction > input[type="submit"],
+.userAction > input[type="button"] {
+  flex: 1;
   height: 50px;
   padding: 10px;
-  background-color: #240046;
+  background-color: #ff9e00;
   border: none;
   border-radius: 5px;
   font-size: large;
   font-weight: bolder;
   color: #fff;
   cursor: pointer;
+}
+
+.userAction > input[type="button"] {
+  margin-left: 10px;
+  background-color: #3a1160;
+  color: #fff;
 }
 
 .userAction > p {
@@ -106,13 +120,38 @@
     padding: 0 30px;
   }
 
+  .labelInput {
+    display: block;
+    border: none;
+    background: transparent;
+    padding: 0;
+    /* margin: 0; */
+  }
+
+  .labelInput > input {
+    padding: 10px;
+    border-radius: 5px;
+    display: block;
+    border: 1px solid black;
+  }
+
+  .requiredField {
+    display: none;
+  }
+
   .userAction {
     display: block;
   }
 
-  .userAction > input[type="submit"] {
+  .userAction > input[type="submit"],
+  .userAction > input[type="button"] {
     width: 100%;
     margin-bottom: 10px;
+    margin: 0 0 10px;
+  }
+
+  .userAction > p {
+    font-size: 18px;
   }
 }
 
@@ -125,15 +164,27 @@
     display: block;
   }
 
+  .userAction > input[type="button"],
   .userAction > input[type="submit"] {
     width: 100%;
     margin-bottom: 10px;
+    margin: 0 0 10px;
   }
 }
 
 @media (min-width: 768px) {
+  .loginMain {
+    height: 80vh;
+    /* display: flex; */
+    /* align-items: center; */
+  }
+
   .login {
     max-width: 720px;
+  }
+
+  .userAction > p {
+    margin-left: 10px;
   }
 }
 

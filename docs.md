@@ -1,3 +1,9 @@
+# Project Structure
+- services -> for all async activities
+- firebase -> for firebase init files
+- 
+
+
 Sh'ld not send null post - Empty posts
 Add SignOut button - When user hovers over his image in header - SignOut must be shown!
 User can delete his profile - Create /profile for update, deleting the profiles!
@@ -5,7 +11,7 @@ Give css to /login
 
 - Add demo account to /login page -> With AutoFill button
 
-- 
+-
 ---
 
 # Routes

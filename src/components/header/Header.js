@@ -87,7 +87,11 @@ const Header = () => {
               >
                 SignOut
               </p>
-              <p onClick={() => deleteUser()}>Delete Account</p>
+              {user?.email !== "test@user.com" ? (
+                <p onClick={() => deleteUser()}>Delete Account</p>
+              ) : (
+                <p>U can't delete me!</p>
+              )}
             </div>
           )}
         </div>

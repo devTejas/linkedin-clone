@@ -7,10 +7,16 @@ import "./Login.css";
 const Login = () => {
   const dispatch = useDispatch();
 
-  const signIn = (e) => {
+  const signIn = (e, isGuest) => {
     e.preventDefault();
+    let email = signInEmail;
+    let password = signInPassword;
+    if (isGuest) {
+      email = "test@user.com";
+      password = "testuser";
+    }
     auth
-      .signInWithEmailAndPassword(signInEmail, signInPassword)
+      .signInWithEmailAndPassword(email, password)
       .then((userAuth) => {
         // setSignInError("Signin Succesfful!");
         const { email, uid, displayName, photoURL } = userAuth.user;
@@ -84,107 +90,104 @@ const Login = () => {
   const [signUpError, setSignUpError] = useState("");
 
   return (
-    <div className="login">
-      <div className="appLogo">
-        <img src="/assets/linkedin.jpg" alt="LinkedIn Logo" />
+    <div className="loginMain">
+      <div className="login">
+        <div className="appLogo">
+          <img src="/assets/linkedin.jpg" alt="LinkedIn Logo" />
+        </div>
+        {showSignIn ? (
+          <form onSubmit={(e) => signIn(e)}>
+            <div className="labelInput">
+              <label>Email</label>{" "}
+              <input
+                type="email"
+                value={signInEmail}
+                placeholder="Email"
+                onChange={(e) => setSignInEmail(e.target.value)}
+                required
+              />
+              <span className="requiredField">*</span>
+            </div>
+            <div className="labelInput">
+              <label>Password</label>{" "}
+              <input
+                type="password"
+                value={signInPassword}
+                placeholder="Password"
+                onChange={(e) => setSignInPassword(e.target.value)}
+                required
+              />
+              <span className="requiredField">*</span>
+            </div>
+            {signInError ? <p>{signInError}</p> : <br />}
+            <div className="userAction">
+              <input type="submit" value="Sign In" />
+              <input
+                type="button"
+                onClick={(e) => signIn(e, true)}
+                value="Guest Login"
+              />
+              <p onClick={() => setShowSignIn(false)}>Create an account?</p>
+            </div>
+          </form>
+        ) : (
+          <form onSubmit={(e) => signUp(e)}>
+            <div className="labelInput">
+              <label>Full Name</label>{" "}
+              <input
+                type="text"
+                placeholder="Full Name"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                required
+              />
+              <span className="requiredField">*</span>
+            </div>
+            <div className="labelInput">
+              <label>Profile Pic</label>{" "}
+              <input
+                type="file"
+                accept="image/jpg, image/jpeg, image/png"
+                placeholder="Profile Pic"
+                onChange={(e) => {
+                  uploadFile(e);
+                }}
+              />
+            </div>
+            <div className="labelInput">
+              <label>Email</label>{" "}
+              <input
+                type="email"
+                placeholder="Email"
+                value={signUpEmail}
+                onChange={(e) => setSignUpEmail(e.target.value)}
+                required
+              />
+              <span className="requiredField">*</span>
+            </div>
+            <div className="labelInput">
+              <label>Password</label>{" "}
+              <input
+                type="password"
+                placeholder="Password"
+                value={signUpPassword}
+                onChange={(e) => setSignUpPassword(e.target.value)}
+                required
+              />
+              <span className="requiredField">*</span>
+            </div>
+            {signUpError ? <p>{signUpError}</p> : <br />}
+            <div className="userAction">
+              <input type="submit" value="Sign Up" />
+              <p onClick={() => setShowSignIn(true)}>
+                Already have an account? Sign In
+              </p>
+            </div>
+          </form>
+        )}
       </div>
-      {showSignIn ? (
-        <form onSubmit={(e) => signIn(e)}>
-          <label>
-            Email
-            <input
-              type="email"
-              value={signInEmail}
-              placeholder="Email"
-              onChange={(e) => setSignInEmail(e.target.value)}
-              required
-            />
-          </label>
-          <label>
-            Password
-            <input
-              type="password"
-              value={signInPassword}
-              placeholder="Password"
-              onChange={(e) => setSignInPassword(e.target.value)}
-              required
-            />
-          </label>
-          {signInError ? <p>{signInError}</p> : <br />}
-          <div className="userAction">
-            <input type="submit" value="Sign In" />
-            <p onClick={() => setShowSignIn(false)}>Create an account?</p>
-          </div>
-        </form>
-      ) : (
-        <form onSubmit={(e) => signUp(e)}>
-          <label>
-            Full Name
-            <input
-              type="text"
-              placeholder="Full Name"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-              required
-            />
-          </label>
-          <label>
-            Profile Pic
-            <input
-              type="file"
-              accept="image/jpg, image/jpeg, image/png"
-              placeholder="Profile Pic"
-              onChange={(e) => {
-                uploadFile(e);
-              }}
-            />
-          </label>
-          <label>
-            Email
-            <input
-              type="email"
-              placeholder="Email"
-              value={signUpEmail}
-              onChange={(e) => setSignUpEmail(e.target.value)}
-              required
-            />
-          </label>
-          <label>
-            Password
-            <input
-              type="password"
-              placeholder="Password"
-              value={signUpPassword}
-              onChange={(e) => setSignUpPassword(e.target.value)}
-              required
-            />
-          </label>
-          {signUpError ? <p>{signUpError}</p> : <br />}
-          <div className="userAction">
-            <input type="submit" value="Sign Up" />
-            <p onClick={() => setShowSignIn(true)}>
-              Already have an account? Sign In
-            </p>
-          </div>
-        </form>
-      )}
     </div>
   );
 };
 
 export default Login;
-
-// Signin
-// - logo
-// - email
-// - pwd
-// - singin btn
-// - Create  an account? text
-
-// Signup
-// - name
-// - email
-// - username
-// - pwd
-// - signup btn
-// Already have an account? Sign In
