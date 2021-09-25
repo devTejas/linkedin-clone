@@ -1,5 +1,5 @@
 .sidebar {
-  color: gray;
+  color: #4cc9f0;
   text-align: center;
   font-size: 12px;
 }
@@ -60,6 +60,8 @@
 }
 
 .viewSection p > span {
-  color: rgb(37, 96, 172);
+  /* color: rgb(37, 96, 172); */
+  color: #2d00f7;
+  font-weight: bold;
   float: right;
 }

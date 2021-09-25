@@ -2,12 +2,14 @@ import React, { useEffect } from "react";
 import "./App.css";
 import AppFeed from "./components/AppFeed/Content/AppFeed";
 import Sidebar from "./components/AppFeed/SideBar/Sidebar";
-import Header from "./components/Header/Header";
+import Header from "./components/header/Header";
 import { useDispatch, useSelector } from "react-redux";
 import Login from "./components/Login/Login";
 import { login, logout, selectUser } from "./features/userSlice";
 import { auth } from "./firebaseConfig";
 import Widgets from "./components/Widgets/Widgets";
+import { BrowserRouter as Router } from "react-router-dom";
+import {} from "react-dom";
 
 function App() {
   const user = useSelector(selectUser);
@@ -36,7 +38,7 @@ function App() {
           <div className="center">
             <AppFeed />
           </div>
-          {/* Widgets */}
+          {/* // Widgets */}
           <div className="rightSideBar">
             <Widgets />
           </div>
@@ -47,3 +49,12 @@ function App() {
 }
 
 export default App;
+
+// <Router>
+//   <Route exact path="/login">
+//     <Login />
+//   </Route>
+//   <Route exact path="/profile"></Route>
+//   <Route exact path="/"></Route>
+//   <Route exact path="/*"></Route>
+// </Router>

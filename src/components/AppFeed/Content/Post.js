@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { ThumbUp, Message, Share, Send } from "@material-ui/icons";
+import { ThumbUp, Message, Share, Send, Delete } from "@material-ui/icons";
 import "./Post.css";
 import { Avatar } from "@material-ui/core";
 import { auth } from "../../../firebaseConfig";
@@ -28,6 +28,7 @@ const Post = ({ postContent }) => {
 
   return (
     <div className="post">
+      <Delete />
       <div className="authorBody">
         {postAuthorName && (
           // <Avatar src={photoURL} alt="Author Image" />

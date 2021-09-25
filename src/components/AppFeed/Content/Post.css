@@ -1,5 +1,7 @@
 .post {
   margin-top: 10px;
+  background-color: #d494ff;
+  border-radius: 11px;
 }
 
 .authorBody {
@@ -8,6 +10,11 @@
   margin-bottom: 14px;
   font-size: 10px;
   letter-spacing: 1.4px;
+}
+
+.MuiAvatar-colorDefault {
+  background-color: #ff6d00 !important;
+  color: white !important;
 }
 
 .MuiAvatar-root {
