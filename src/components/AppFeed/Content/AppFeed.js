@@ -1,17 +1,17 @@
-import React, { useEffect, useState } from "react";
 import {
+  CalendarViewDay,
   Create,
+  EventNote,
   Image,
   VideoLibrary,
-  EventNote,
-  CalendarViewDay,
 } from "@material-ui/icons";
-import "./AppFeed.css";
-import Post from "./Post";
 import firebase from "firebase";
-import { db } from "../../../firebaseConfig";
+import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { selectUser } from "../../../features/userSlice";
+import { db } from "../../../firebaseConfig";
+import "./AppFeed.css";
+import Post from "./Post";
 
 const InputOption = ({ Icon, title, color }) => {
   return (
@@ -39,7 +39,7 @@ const AppFeed = () => {
   */
   const [posts, setPosts] = useState([]);
   const [input, setInput] = useState("");
-  const [empty, setEmpty] = useState(false);
+  const [empty, setEmpty] = useState(false); // whether postInput is empty
 
   const authorProfile = useSelector(selectUser);
 
@@ -67,6 +67,7 @@ const AppFeed = () => {
           postLikes: 0,
           postComments: [],
           postAuthorName: authorProfile.displayName,
+          postAuthorUid: authorProfile.uid,
         })
         .then(() => setInput(""))
         .catch((err) => {
@@ -118,7 +119,7 @@ const AppFeed = () => {
           posts.map((post) => (
             <Post
               key={post.id}
-              postAuthorId={post.postAuthorId}
+              // postAuthorId={post.postAuthorId} // right now we are not sending any authorId
               postContent={post}
             />
           ))}

@@ -1,16 +1,16 @@
-import React, { useEffect } from "react";
 import {
-  Search,
-  Home,
   Group,
-  ShoppingBasket,
+  Home,
   Message,
   NotificationImportant,
+  Search,
+  ShoppingBasket,
 } from "@material-ui/icons";
-import "./Header.css";
+import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { login, logout, selectUser } from "../../features/userSlice";
+import { logout, selectUser } from "../../features/userSlice";
 import { auth } from "../../firebaseConfig";
+import "./Header.css";
 
 const HeaderOption = ({ Icon, title }) => {
   return (

@@ -1,15 +1,14 @@
 import React, { useEffect } from "react";
+import {} from "react-dom";
+import { useDispatch, useSelector } from "react-redux";
 import "./App.css";
 import AppFeed from "./components/AppFeed/Content/AppFeed";
 import Sidebar from "./components/AppFeed/SideBar/Sidebar";
-import Header from "./components/header/Header";
-import { useDispatch, useSelector } from "react-redux";
+import Header from "./components/Header/Header";
 import Login from "./components/Login/Login";
+import Widgets from "./components/Widgets/Widgets";
 import { login, logout, selectUser } from "./features/userSlice";
 import { auth } from "./firebaseConfig";
-import Widgets from "./components/Widgets/Widgets";
-import { BrowserRouter as Router } from "react-router-dom";
-import {} from "react-dom";
 
 function App() {
   const user = useSelector(selectUser);

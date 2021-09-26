@@ -2,6 +2,12 @@
   margin-top: 10px;
   background-color: #d494ff;
   border-radius: 11px;
+  padding: 10px;
+}
+
+.actionButton {
+  float: right;
+  cursor: pointer;
 }
 
 .authorBody {
