@@ -84,3 +84,16 @@
 .postActionOption:hover {
   color: black;
 }
+
+.postEditContainer {
+  padding: 5px;
+  margin-bottom: 10px;
+  border-radius: 30px;
+  background-color: #fff;
+  width: 100%;
+  display: flex;
+}
+
+.postEditContainer > input[type="submit"] {
+  border: none;
+}

@@ -47,7 +47,7 @@ const Header = () => {
   // }, []);
 
   return (
-    <div className="header">
+    <header className="header">
       <div className="header__main">
         <div className="header__left">
           <img
@@ -96,7 +96,7 @@ const Header = () => {
           )}
         </div>
       </div>
-    </div>
+    </header>
   );
 };
 

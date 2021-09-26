@@ -1,5 +1,6 @@
 import { Avatar } from "@material-ui/core";
 import {
+  Close,
   Create,
   Delete,
   Message,
@@ -27,7 +28,6 @@ const Post = ({ postContent }) => {
 
   // if user and postAuthor are same then show the delete and edit buttons
   const [showAction, setShowAction] = useState(false);
-  const [showEditForm, setShowEditForm] = useState(false);
 
   useEffect(() => {
     console.log("Comparing user.uid & postAuthorUid");
@@ -62,9 +62,9 @@ const Post = ({ postContent }) => {
   const [input, setInput] = useState("");
   const [toggleLike, setToggleLike] = useState(false);
 
-  const PostActionOption = ({ Icon, title, value, color, onClickFn }) => {
+  const PostActionOption = ({ Icon, title, value, color }) => {
     return (
-      <div className="postActionOption" onClick={onClickFn}>
+      <div className="postActionOption">
         <Icon style={{ color }} />
         {value}
         <p>{title}</p>
@@ -95,11 +95,15 @@ const Post = ({ postContent }) => {
         <div className="postBody__text">
           <p>{postText}</p>
           {input && (
-            <form>
+            <form className="postEditContainer">
               <input
                 type="text"
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
+              />
+              <Close
+                style={{ cursor: "pointer" }}
+                onClick={() => setInput("")}
               />
               <input
                 type="submit"
@@ -134,12 +138,11 @@ const Post = ({ postContent }) => {
         )}
         <div className="postAction">
           <PostActionOption
-            className="actionButton"
             Icon={ThumbUp}
             title="Likes"
             value={postLikes}
             color="#4c8dce"
-            onClickFn={() => {
+            onClick={() => {
               const docRef = db.collection("posts").doc(postContent.id);
               // if toggleLike=true ie it's already liked by current user else it's not liked
               let likeCounter = toggleLike ? postLikes - 1 : postLikes + 1;

@@ -6,23 +6,28 @@ import {
   VideoLibrary,
 } from "@material-ui/icons";
 import firebase from "firebase";
-import React, { useEffect, useState } from "react";
+import React, { Fragment, useEffect, useRef, useState } from "react";
 import { useSelector } from "react-redux";
 import { selectUser } from "../../../features/userSlice";
 import { db } from "../../../firebaseConfig";
 import "./AppFeed.css";
 import Post from "./Post";
 
-const InputOption = ({ Icon, title, color }) => {
-  return (
-    <div className="inputOption">
-      <Icon style={{ color }} />
-      <span>{title}</span>
-    </div>
-  );
-};
-
 const AppFeed = () => {
+  const InputOption = ({ Icon, title, color }) => {
+    return (
+      <div
+        className="inputOption"
+        onClick={() => {
+          if (title === "Image") console.log(inputFileRef.current.click());
+        }}
+      >
+        <Icon style={{ color }} />
+        <span>{title}</span>
+      </div>
+    );
+  };
+
   /*
   posts =
   [
@@ -79,6 +84,8 @@ const AppFeed = () => {
     }
   };
 
+  const inputFileRef = useRef();
+
   // const authorProfile = {
   //   authorImageUrl: "http://localhost:3000/assets/linkedin.jpg",
   //   authorName: "Test",
@@ -124,6 +131,17 @@ const AppFeed = () => {
             />
           ))}
       </div>
+      {/* Input file fragment */}
+      <Fragment>
+        <input
+          type="file"
+          name="image"
+          accept=".png,.jpeg,.jpg,.webp"
+          ref={inputFileRef}
+          // onChange={handleImageUploadAndRender}
+          hidden
+        />
+      </Fragment>
     </div>
   );
 };

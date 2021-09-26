@@ -3,13 +3,12 @@
 }
 
 .app {
-  width: max-content;
+  /* width: max-content; */
   max-width: 100%;
   max-width: 100vw;
   min-height: 100vh;
   margin-left: auto;
   margin-right: auto;
-  background-color: #9d4edd;
 }
 
 .appFeed {

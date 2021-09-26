@@ -26,23 +26,25 @@ function App() {
   return (
     <div className="app">
       <Header />
-      {!user ? (
-        <Login />
-      ) : (
-        // App Feed
-        <div className="appFeed">
-          <div className="leftSideBar">
-            <Sidebar />
+      <main>
+        {!user ? (
+          <Login />
+        ) : (
+          // App Feed
+          <div className="appFeed">
+            <div className="leftSideBar">
+              <Sidebar />
+            </div>
+            <div className="center">
+              <AppFeed />
+            </div>
+            {/* // Widgets */}
+            <div className="rightSideBar">
+              <Widgets />
+            </div>
           </div>
-          <div className="center">
-            <AppFeed />
-          </div>
-          {/* // Widgets */}
-          <div className="rightSideBar">
-            <Widgets />
-          </div>
-        </div>
-      )}
+        )}
+      </main>
     </div>
   );
 }

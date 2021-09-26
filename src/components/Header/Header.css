@@ -1,22 +1,14 @@
 .header {
-  border-bottom: 1px solid lightgray;
   color: white;
   position: sticky;
   background-color: #10002b;
-  width: 100vw;
-  max-width: 100%;
-  max-width: 100vw;
-  margin-left: auto;
-  margin-right: auto;
 }
 
 .header__main {
   display: flex;
   align-items: center;
   padding: 10px;
-  /* margin-left: auto;
-  margin-right: auto;
-  width: max-content; */
+  justify-content: center;
 }
 
 .header__left {
