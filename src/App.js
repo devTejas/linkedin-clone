@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import "./App.css";
 import AppFeed from "./components/AppFeed/Content/AppFeed";
 import Sidebar from "./components/AppFeed/SideBar/Sidebar";
+import Header from "./components/Header/Header";
 import Login from "./components/Login/Login";
 import Widgets from "./components/Widgets/Widgets";
 import { login, logout, selectUser } from "./features/userSlice";
@@ -24,7 +25,7 @@ function App() {
 
   return (
     <div className="app">
-      {/* <Header /> */}
+      <Header />
       {!user ? (
         <Login />
       ) : (
