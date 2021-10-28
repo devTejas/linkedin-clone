@@ -33,6 +33,7 @@ user = {
   email,
   uid,
   photoURL,
-  description
+  status,
+  description,
 }
 */

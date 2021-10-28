@@ -6,8 +6,9 @@ import {
   Search,
   ShoppingBasket,
 } from "@material-ui/icons";
-import React from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { BrowserRouter as Router, Link, useHistory } from "react-router-dom";
 import { logout, selectUser } from "../../features/userSlice";
 import { auth } from "../../firebaseConfig";
 import "./Header.css";
@@ -36,6 +37,15 @@ const Header = () => {
       .catch((err) => alert(err.message));
   };
 
+  // const history = useHistory();
+
+  // useEffect(() => {
+  //   history.location.pathname === "/login"
+  //     ? history.push("/")
+  //     : history.push("/login");
+  // }, [user]);
+
+  // already defined in app.js
   // useEffect(() => {
   //   auth.onAuthStateChanged(async (userAuth) => {
   //     if (userAuth) {
@@ -47,56 +57,66 @@ const Header = () => {
   // }, []);
 
   return (
-    <header className="header">
-      <div className="header__main">
-        <div className="header__left">
-          <img
-            className="logo"
-            src="/assets/linkedin.jpg"
-            alt="LinkedIn Logo"
-          />
-          <div className="header__searchBar">
-            <Search />
-            <input type="search" placeholder="Search" />
+    <Router>
+      <header className="header">
+        <div className="header__main">
+          <div className="header__left">
+            {/* Link not working */}
+            <a href="/">
+              <img
+                className="logo"
+                src="/assets/linkedin.jpg"
+                alt="LinkedIn Logo"
+              />
+            </a>
+            <div className="header__searchBar">
+              <Search />
+              <input type="search" placeholder="Search" />
+            </div>
           </div>
-        </div>
-        <div className="header__right">
-          <HeaderOption Icon={Home} title="Home" />
-          <HeaderOption Icon={Group} title="My Network" />
-          <HeaderOption Icon={ShoppingBasket} title="Jobs" />
-          <HeaderOption Icon={Message} title="Messaging" />
-          <HeaderOption Icon={NotificationImportant} title="Notifications" />
-          {user && (
-            <div className="headerOption">
-              <div className="profileImage">
-                {user.displayName && user?.photoURL ? (
-                  <img src={user?.photoURL} alt="Profile" />
+          <div className="header__right">
+            <a href="/">
+              {" "}
+              <HeaderOption Icon={Home} title="Home" />
+            </a>
+            <HeaderOption Icon={Group} title="My Network" />
+            <HeaderOption Icon={ShoppingBasket} title="Jobs" />
+            <HeaderOption Icon={Message} title="Messaging" />
+            <HeaderOption Icon={NotificationImportant} title="Notifications" />
+            {user ? (
+              <div className="headerOption">
+                <div className="profileImage">
+                  {user.displayName && user?.photoURL ? (
+                    <img src={user?.photoURL} alt="Profile" />
+                  ) : (
+                    <p>
+                      {!user?.displayName
+                        ? ""
+                        : user?.displayName[0].toUpperCase()}
+                    </p>
+                  )}
+                </div>
+                <p
+                  onClick={() => {
+                    auth.signOut();
+                    dispatch(logout());
+                  }}
+                >
+                  SignOut
+                </p>
+                {user?.email !== "test@user.com" ? (
+                  <p onClick={() => deleteUser()}>Delete Account</p>
                 ) : (
-                  <p>
-                    {!user?.displayName
-                      ? ""
-                      : user?.displayName[0].toUpperCase()}
-                  </p>
+                  <p>U can't delete me!</p>
                 )}
               </div>
-              <p
-                onClick={() => {
-                  auth.signOut();
-                  dispatch(logout());
-                }}
-              >
-                SignOut
-              </p>
-              {user?.email !== "test@user.com" ? (
-                <p onClick={() => deleteUser()}>Delete Account</p>
-              ) : (
-                <p>U can't delete me!</p>
-              )}
-            </div>
-          )}
+            ) : (
+              <a href="/login">Login</a>
+            )}
+          </div>
         </div>
-      </div>
-    </header>
+      </header>
+    </Router>
   );
 };
 

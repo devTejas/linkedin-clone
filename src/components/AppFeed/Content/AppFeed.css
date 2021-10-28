@@ -61,3 +61,11 @@
 .inputOption:hover {
   background-color: whitesmoke;
 }
+
+.imageItemContainer {
+  display: flex;
+}
+
+.imageItem {
+  width: 300px;
+}

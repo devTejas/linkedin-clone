@@ -1,0 +1,139 @@
+.profile {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.userCard {
+  margin: 30px 0px;
+  padding: 10px;
+  background: #ff9e00;
+  border: 1px solid #10002b;
+  border-radius: 10px;
+  box-shadow: rgb(0 0 0 / 69%) 0px 26px 30px -10px,
+    rgb(0 0 0 / 73%) 0px 16px 10px -10px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.userCard > img {
+  width: 100px;
+  height: 100px;
+  object-fit: contain;
+  border-radius: 50%;
+  background-color: #ff9e00;
+  background-color: black;
+  border: 3px solid #10002b;
+}
+
+.userCard > .userItem {
+  display: flex;
+  align-items: center;
+}
+
+.userItem > h3 {
+  margin-right: 5px;
+  float: left;
+  color: white;
+}
+
+.userItem > h2 {
+  float: right;
+}
+
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: white;
+  padding: 15px;
+}
+
+.profileCard {
+  display: flex;
+  flex-direction: column;
+  padding: 15px;
+}
+
+.profileCard > div {
+  margin-bottom: 6px;
+  width: 100%;
+}
+
+.profileCard > div > span {
+  padding: 5px 10px;
+  width: 100%;
+  display: block;
+  border-radius: 10px;
+  border-bottom: 1px solid;
+}
+
+.profileFormCard {
+  border-left: 1px solid;
+  padding: 15px;
+}
+
+.profileFormCard > form > label {
+  margin-bottom: 4px;
+}
+
+.uploadImage {
+  margin-top: 10px;
+  background-color: #ff9e00;
+  cursor: pointer;
+  display: block;
+  padding: 4px 4px 4px 10px;
+  width: 100%;
+  border-radius: 10px;
+}
+
+.profileFormCard > form > label > input {
+  border: 1px solid black;
+}
+
+.saveChangesText {
+  margin-top: 10px;
+  background-color: red;
+  border-radius: 10px;
+  padding: 6px;
+  color: white;
+  font-weight: bold;
+}
+
+.saveChangesButton {
+  margin-top: 10px;
+  padding: 6px;
+  border-radius: 10px;
+  background-color: #10002b;
+  color: white;
+  font-weight: bold;
+  width: 100%;
+}
+
+@media only screen and (min-width: 1020px) {
+  .container {
+    width: 700px;
+    padding: 30px 0px;
+  }
+
+  .profileCard {
+    flex: 1;
+    height: max-content;
+  }
+
+  .profileFormCard {
+    flex: 1;
+  }
+}
+
+@media only screen and (max-width: 800px) {
+  .container {
+    /* width: 700px; */
+  }
+}
+
+@media only screen and (min-width: 200px) and (max-width: 400px) {
+}

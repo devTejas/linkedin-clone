@@ -1,61 +1,67 @@
 import React, { useEffect } from "react";
-import {} from "react-dom";
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link,
+  useHistory,
+} from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import "./App.css";
 import AppFeed from "./components/AppFeed/Content/AppFeed";
 import Sidebar from "./components/AppFeed/SideBar/Sidebar";
-import Header from "./components/Header/Header";
-import Login from "./components/Login/Login";
 import Widgets from "./components/Widgets/Widgets";
 import { login, logout, selectUser } from "./features/userSlice";
 import { auth } from "./firebaseConfig";
 
-function App() {
+import Header from "./components/Header/Header";
+
+import Login from "./pages/Login/Login";
+import Profile from "./pages/Profile/Profile";
+import Post from "./pages/Post/Post";
+import Home from "./pages/Home/Home";
+import AuthRoute from "./services/AuthRoute";
+import { getUserDataByEmail } from "./services/authenticationRequests";
+
+const App = () => {
   const user = useSelector(selectUser);
   const dispatch = useDispatch();
 
+  // already defined in header.js but commented
   useEffect(() => {
     auth.onAuthStateChanged(async (userAuth) => {
       if (userAuth) {
-        const { displayName, uid, email, photoURL } = userAuth;
-        dispatch(login({ displayName, uid, email, photoURL }));
+        let userData = await getUserDataByEmail(userAuth.email, "App.jsUE");
+        dispatch(login({ ...userData }));
+        // const { displayName, uid, email, photoURL } = userAuth;
+        // dispatch(login({ displayName, uid, email, photoURL }));
       } else dispatch(logout());
     });
   }, []);
 
   return (
-    <div className="app">
+    <div>
       <Header />
-      <main>
-        {!user ? (
-          <Login />
-        ) : (
-          // App Feed
-          <div className="appFeed">
-            <div className="leftSideBar">
-              <Sidebar />
-            </div>
-            <div className="center">
-              <AppFeed />
-            </div>
-            {/* // Widgets */}
-            <div className="rightSideBar">
-              <Widgets />
-            </div>
-          </div>
-        )}
-      </main>
+      <div className="app">
+        <Router>
+          <main>
+            <Switch>
+              <Route exact path="/login" component={Login} />
+              <Route exact path="/:id" component={Profile} />
+              <Route exact path="/post/:id" component={Post} />
+              <AuthRoute path="/post" component={Post} />
+              <Route exact path="/" component={Home} />
+              <Route exact path="/*" component={Home} />
+            </Switch>
+          </main>
+        </Router>
+      </div>
     </div>
   );
-}
+};
 
 export default App;
 
-// <Router>
-//   <Route exact path="/login">
-//     <Login />
-//   </Route>
-//   <Route exact path="/profile"></Route>
-//   <Route exact path="/"></Route>
-//   <Route exact path="/*"></Route>
-// </Router>
+// My Dream will awaken in sleepy eyes Hold my hands if I fall asleep There will be a crown on the head and My Head will be the palace If I stop writing, cut off my hands!
+
+//  Mera khwaab jagega nind bhari aakhon mein. Aankh lage toh thaamb lena haath mere. Taj chadega sar mehal banega. Kabhi likhna rukhe toh, kaat dena haat mere.

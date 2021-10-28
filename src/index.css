@@ -1,10 +1,16 @@
 @import url("https://fonts.googleapis.com/css2?family=Poppins&display=swap");
 
+:root,
+body,
+html {
+  box-sizing: border-box;
+}
+
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: Poppins, monospace, "Courier New", Courier;
+  font-family: Poppins, Verdana, monospace, "Courier New", Courier;
 }
 
 body {
@@ -24,9 +30,10 @@ code {
     monospace;
 }
 
-input:not([type="submit"]),
+input:not([type="submit"], [type="file"]),
 textarea {
-  width: 100%;
+  /* width: 100%; */
+  display: block;
   border: none;
   outline: none;
   padding-left: 5px;

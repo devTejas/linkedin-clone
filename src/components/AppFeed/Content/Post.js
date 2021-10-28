@@ -10,13 +10,19 @@ import {
 } from "@material-ui/icons";
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 import { selectUser } from "../../../features/userSlice";
 import { db } from "../../../firebaseConfig";
 import "./Post.css";
 
-// postAuthorId -> uid of the post of the Author
+// postAuthorId -> uid of the post of the Author or userName(currently it's userName)
 const Post = ({ postContent }) => {
+  // if user and postAuthor are same then show the delete and edit buttons
+  const [showAction, setShowAction] = useState(false);
+
   const user = useSelector(selectUser);
+  console.log(user);
+
   const {
     postAuthorUid,
     postAuthorName,
@@ -26,13 +32,15 @@ const Post = ({ postContent }) => {
     postComments,
   } = postContent;
 
-  // if user and postAuthor are same then show the delete and edit buttons
-  const [showAction, setShowAction] = useState(false);
+  // useEffect(() => {
+  //   console.log("Comparing user.uid & postAuthorUid");
+  //   if (user?.uid === postAuthorUid) setShowAction(true);
+  // }, [user?.uid, postAuthorUid]);
 
   useEffect(() => {
-    console.log("Comparing user.uid & postAuthorUid");
-    if (user.uid === postAuthorUid) setShowAction(true);
-  }, [user.uid, postAuthorUid]);
+    console.log(user, postContent);
+    if (user?.userName === postAuthorUid) setShowAction(true);
+  }, [user?.userName, postAuthorUid]);
 
   const updatePost = (action) => {
     console.log("updatePost", postContent);
@@ -64,7 +72,21 @@ const Post = ({ postContent }) => {
 
   const PostActionOption = ({ Icon, title, value, color }) => {
     return (
-      <div className="postActionOption">
+      <div
+        className="postActionOption"
+        onClick={() => {
+          if (title === "Likes") {
+            const docRef = db.collection("posts").doc(postContent.id);
+            // if toggleLike=true ie it's already liked by current user else it's not liked
+            let likeCounter = toggleLike ? postLikes - 1 : postLikes + 1;
+            docRef
+              .update({ ...postContent, postLikes: likeCounter })
+              .then(() => {
+                setToggleLike(!toggleLike);
+              });
+          }
+        }}
+      >
         <Icon style={{ color }} />
         {value}
         <p>{title}</p>
@@ -74,23 +96,25 @@ const Post = ({ postContent }) => {
 
   return (
     <div className="post">
-      {showAction && (
+      {showAction && user && (
         <Delete className="actionButton" onClick={() => updatePost()} />
       )}
-      {showAction && (
+      {showAction && user && (
         <Create className="actionButton" onClick={() => setInput(postText)} />
       )}
-      <div className="authorBody">
-        {postAuthorName && (
-          // <Avatar src={photoURL} alt="Author Image" />
-          <Avatar src={""} alt="Author Image">
-            {postAuthorName[0]}
-          </Avatar>
-        )}
-        <div className="authorAbout">
-          <h3>{postAuthorName}</h3>
+      <Link to={`${postAuthorUid}`}>
+        <div className="authorBody">
+          {postAuthorName && (
+            // <Avatar src={photoURL} alt="Author Image" />
+            <Avatar src={""} alt="Author Image">
+              {postAuthorName[0]}
+            </Avatar>
+          )}
+          <div className="authorAbout">
+            <h3>{postAuthorName}</h3>
+          </div>
         </div>
-      </div>
+      </Link>
       <div className="postBody">
         <div className="postBody__text">
           <p>{postText}</p>
@@ -137,22 +161,14 @@ const Post = ({ postContent }) => {
           </div>
         )}
         <div className="postAction">
-          <PostActionOption
-            Icon={ThumbUp}
-            title="Likes"
-            value={postLikes}
-            color="#4c8dce"
-            onClick={() => {
-              const docRef = db.collection("posts").doc(postContent.id);
-              // if toggleLike=true ie it's already liked by current user else it's not liked
-              let likeCounter = toggleLike ? postLikes - 1 : postLikes + 1;
-              docRef
-                .update({ ...postContent, postLikes: likeCounter })
-                .then(() => {
-                  setToggleLike(!toggleLike);
-                });
-            }}
-          />
+          {user && (
+            <PostActionOption
+              Icon={ThumbUp}
+              title="Likes"
+              value={postLikes}
+              color="#4c8dce"
+            />
+          )}
           <PostActionOption Icon={Message} title="Comment" color="#4c8dce" />
           <PostActionOption Icon={Share} title="Share" color="#4c8dce" />
           <PostActionOption Icon={Send} title="Send" color="#4c8dce" />
