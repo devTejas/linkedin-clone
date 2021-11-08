@@ -3,15 +3,6 @@ import { useSelector } from "react-redux";
 import { selectUser } from "../../../features/userSlice";
 import "./Sidebar.css";
 
-const RecentOption = ({ title }) => {
-  return (
-    <p>
-      <span>#</span>
-      {title}
-    </p>
-  );
-};
-
 const Sidebar = () => {
   const user = useSelector(selectUser);
 

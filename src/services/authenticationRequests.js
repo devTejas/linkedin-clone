@@ -110,3 +110,20 @@ export const updateUser = async (userData) => {
     });
   return message;
 };
+
+// since we are using dispatch we must make the function as Capital to show it as a component
+export const DeleteUser = (userName) => {
+  const user = auth.currentUser;
+  user
+    .delete()
+    .then(() => {
+      db.collection("users")
+        .doc(userName)
+        .delete()
+        .then(() => {
+          alert("User deleted!");
+          window.location = "/";
+        });
+    })
+    .catch((err) => alert(err.message));
+};

@@ -1,16 +1,19 @@
 import { Fragment, useEffect, useRef, useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router";
-import { selectUser } from "../../features/userSlice";
+import { logout, selectUser } from "../../features/userSlice";
 import { db } from "../../firebaseConfig";
 import {
   checkUserName,
+  DeleteUser,
   updateUser,
 } from "../../services/authenticationRequests";
 import "./Profile.css";
 
 const Profile = () => {
   const currentUser = useSelector(selectUser);
+  const dispatch = useDispatch();
+
   const fileRef = useRef();
 
   const [error, setError] = useState("");
@@ -34,6 +37,8 @@ const Profile = () => {
 
   const { id } = useParams();
 
+  useEffect(() => {}, []);
+
   // image upload & rendering
   useEffect(() => {
     if (file) {
@@ -49,28 +54,35 @@ const Profile = () => {
     }
   }, [file]);
 
-  useEffect(async () => {
-    if (id === currentUser?.userName) {
-      setUserData(currentUser);
-      setShowUpdateForm(true);
-    } else {
-      setShowUpdateForm(false);
-      let value = await checkUserName(id);
-      if (!value) {
-        try {
-          const userRef = db.collection("users").doc(id);
-          userRef.get().then((doc) => {
-            setUserData({ ...doc.data(), userName: doc.id, photoURL: imgURL });
-          });
-        } catch (err) {
-          console.error(err);
-          setError(err);
-        }
+  useEffect(() => {
+    async function fetchData() {
+      if (id === currentUser?.userName) {
+        setUserData(currentUser);
+        setShowUpdateForm(true);
       } else {
-        setError("User not found!");
+        setShowUpdateForm(false);
+        let value = await checkUserName(id);
+        if (!value) {
+          try {
+            const userRef = db.collection("users").doc(id);
+            userRef.get().then((doc) => {
+              setUserData({
+                ...doc.data(),
+                userName: doc.id,
+                photoURL: imgURL,
+              });
+            });
+          } catch (err) {
+            console.error(err);
+            setError(err);
+          }
+        } else {
+          setError("User not found!");
+        }
       }
     }
-  }, [id, currentUser]);
+    fetchData();
+  }, [id, currentUser, imgURL]);
 
   const updateUserProfile = async (e) => {
     e.preventDefault();
@@ -101,7 +113,7 @@ const Profile = () => {
             <div className="profileCard">
               <div>
                 {userData?.photoURL && (
-                  <img src={userData?.photoURL} alt="Profile Photo" />
+                  <img src={userData?.photoURL} alt="Profile" />
                 )}
               </div>
               <div>
@@ -188,6 +200,22 @@ const Profile = () => {
               </div>
             )}
           </div>
+          {showUpdateForm && (
+            <button
+              className="deleteUserButton"
+              onClick={() => {
+                if (currentUser?.email !== "test@user.com")
+                  window.confirm("Are you sure? You want to go") &&
+                    DeleteUser(currentUser?.userName);
+                dispatch(logout());
+              }}
+            >
+              {currentUser?.email !== "test@user.com"
+                ? `Delete Account`
+                : "Developer Accounts can't be deleted!"}
+            </button>
+          )}
+          Don't worry your posts won't be deleted!
         </div>
       )}
       <Fragment>

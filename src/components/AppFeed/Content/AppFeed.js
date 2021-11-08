@@ -16,12 +16,7 @@ import Post from "./Post";
 const AppFeed = () => {
   const InputOption = ({ Icon, title, color }) => {
     return (
-      <div
-        className="inputOption"
-        onClick={() => {
-          if (title === "Image") console.log(inputFileRef.current.click());
-        }}
-      >
+      <div className="inputOption" onClick={() => inputFileRef.current.click()}>
         <Icon style={{ color }} />
         <span>{title}</span>
       </div>
@@ -42,9 +37,12 @@ const AppFeed = () => {
         }
   ]
   */
+
   const [posts, setPosts] = useState([]);
   const [input, setInput] = useState("");
   const [empty, setEmpty] = useState(false); // whether postInput is empty
+  const [images, setImages] = useState([]);
+  const [files, setFiles] = useState([]);
 
   const authorProfile = useSelector(selectUser);
 
@@ -86,7 +84,12 @@ const AppFeed = () => {
           postAuthorName: authorProfile.displayName,
           postAuthorUid: authorProfile.userName,
         })
-        .then(() => setInput(""))
+        .then(() => {
+          setInput("");
+          setFiles([]);
+          setImages([]);
+        })
+
         .catch((err) => {
           alert("Message not sent! Check your network connection!");
         });
@@ -118,23 +121,25 @@ const AppFeed = () => {
     }
   };
 
-  const [images, setImages] = useState([]);
-  const [files, setFiles] = useState([]);
   console.log("111 - images,files", images, files);
 
   const handleImageUploadAndRender = (e) => {
-    console.log("It works");
-    const file = e.target.files[0];
-    if (validateFile(file)) {
-      const reader = new FileReader();
-      reader.onload = (e) => {
-        console.log(e, e.target, e.target.result);
-        setImages((prev) => [...prev, e.target.result]);
-      };
-      setFiles((prev) => [...prev, file]);
-      reader.readAsDataURL(file);
-      console.log(reader, file);
+    const inputFiles = e.target.files;
+    console.log(inputFiles, images, files);
+
+    for (let file of inputFiles) {
+      if (validateFile(file)) {
+        const reader = new FileReader();
+        reader.onload = (e) => {
+          console.log(e, e.target, e.target.result);
+          setImages((prev) => [...prev, e.target.result]);
+        };
+        setFiles((prev) => [...prev, file]);
+        reader.readAsDataURL(file);
+        console.log(reader, file);
+      }
     }
+    console.log(inputFiles, images, files);
   };
 
   return (

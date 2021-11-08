@@ -1,30 +1,18 @@
 import React, { useEffect } from "react";
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  Link,
-  useHistory,
-} from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import "./App.css";
-import AppFeed from "./components/AppFeed/Content/AppFeed";
-import Sidebar from "./components/AppFeed/SideBar/Sidebar";
-import Widgets from "./components/Widgets/Widgets";
-import { login, logout, selectUser } from "./features/userSlice";
-import { auth } from "./firebaseConfig";
-
+import Post from "./components/AppFeed/Content/Post";
 import Header from "./components/Header/Header";
-
+import { login, logout } from "./features/userSlice";
+import { auth } from "./firebaseConfig";
+import Home from "./pages/Home/Home";
 import Login from "./pages/Login/Login";
 import Profile from "./pages/Profile/Profile";
-import Post from "./pages/Post/Post";
-import Home from "./pages/Home/Home";
-import AuthRoute from "./services/AuthRoute";
 import { getUserDataByEmail } from "./services/authenticationRequests";
+import AuthRoute from "./services/AuthRoute";
 
 const App = () => {
-  const user = useSelector(selectUser);
   const dispatch = useDispatch();
 
   // already defined in header.js but commented
@@ -37,6 +25,8 @@ const App = () => {
         // dispatch(login({ displayName, uid, email, photoURL }));
       } else dispatch(logout());
     });
+
+    console.clear();
   }, []);
 
   return (

@@ -5,13 +5,15 @@ import { Redirect, Route } from "react-router";
 import { selectUser } from "../features/userSlice";
 
 // if user is logged in then that component can be shown else /login
-const AuthRoute = ({ path, component }) => {
+const AuthRoute = ({ path, Component }) => {
   const user = useSelector(selectUser);
   return (
     <Route
       render={() =>
         user ? (
-          <Route path={path} component={component} />
+          <Route path={path}>
+            <Component />
+          </Route>
         ) : (
           <Redirect to="/login" />
         )

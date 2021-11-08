@@ -43,11 +43,18 @@
 
 .mediaSection {
   margin-bottom: 10px;
-  display: flex;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
 }
 
 .mediaSection > img {
-  margin-right: 2px;
+  width: 100%;
+  height: 300px;
+  cursor: pointer;
+}
+
+.mediaSection > img:hover {
+  transform: scale(1.1);
 }
 
 .likesSection {

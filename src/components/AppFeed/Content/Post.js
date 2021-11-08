@@ -3,9 +3,8 @@ import {
   Close,
   Create,
   Delete,
+  FileCopyRounded,
   Message,
-  Send,
-  Share,
   ThumbUp,
 } from "@material-ui/icons";
 import React, { useEffect, useState } from "react";
@@ -21,7 +20,6 @@ const Post = ({ postContent }) => {
   const [showAction, setShowAction] = useState(false);
 
   const user = useSelector(selectUser);
-  console.log(user);
 
   const {
     postAuthorUid,
@@ -40,6 +38,8 @@ const Post = ({ postContent }) => {
   useEffect(() => {
     console.log(user, postContent);
     if (user?.userName === postAuthorUid) setShowAction(true);
+
+    console.clear();
   }, [user?.userName, postAuthorUid]);
 
   const updatePost = (action) => {
@@ -69,22 +69,30 @@ const Post = ({ postContent }) => {
 
   const [input, setInput] = useState("");
   const [toggleLike, setToggleLike] = useState(false);
+  const [textCopied, setTextCopied] = useState(false);
+
+  const likeAction = () => {
+    const docRef = db.collection("posts").doc(postContent.id);
+    // if toggleLike=true ie it's already liked by current user else it's not liked
+    let likeCounter = toggleLike ? postLikes - 1 : postLikes + 1;
+    docRef
+      .update({ ...postContent, postLikes: likeCounter })
+      .then(() => setToggleLike(!toggleLike));
+  };
+
+  const copyToClipBoardAction = () => {
+    navigator.clipboard.writeText(postText);
+    setTextCopied(true);
+    setTimeout(() => setTextCopied(false), 3000);
+  };
 
   const PostActionOption = ({ Icon, title, value, color }) => {
     return (
       <div
         className="postActionOption"
         onClick={() => {
-          if (title === "Likes") {
-            const docRef = db.collection("posts").doc(postContent.id);
-            // if toggleLike=true ie it's already liked by current user else it's not liked
-            let likeCounter = toggleLike ? postLikes - 1 : postLikes + 1;
-            docRef
-              .update({ ...postContent, postLikes: likeCounter })
-              .then(() => {
-                setToggleLike(!toggleLike);
-              });
-          }
+          if (title === "Likes") likeAction();
+          else if (title === "Copy") copyToClipBoardAction();
         }}
       >
         <Icon style={{ color }} />
@@ -142,9 +150,23 @@ const Post = ({ postContent }) => {
         </div>
         {postMedia && (
           <div className="mediaSection">
-            {postMedia.map((mediaUrl, index) => {
-              return <img key={index} src={mediaUrl} alt="Media" />;
-            })}
+            {postMedia.map((mediaUrl, index) => (
+              <img
+                key={index}
+                src={mediaUrl}
+                alt="Media"
+                id={`postMediaImage${index}`}
+                onClick={() => {
+                  let imgEle = document.getElementById(
+                    `postMediaImage${index}`
+                  );
+                  document.fullscreenElement === null
+                    ? imgEle.requestFullscreen()
+                    : document.exitFullscreen();
+                  console.log(imgEle);
+                }}
+              />
+            ))}
           </div>
         )}
         {/* {postLikes && (
@@ -170,8 +192,11 @@ const Post = ({ postContent }) => {
             />
           )}
           <PostActionOption Icon={Message} title="Comment" color="#4c8dce" />
-          <PostActionOption Icon={Share} title="Share" color="#4c8dce" />
-          <PostActionOption Icon={Send} title="Send" color="#4c8dce" />
+          <PostActionOption
+            Icon={FileCopyRounded}
+            title={!textCopied ? `Copy` : `Text Copied!`}
+            color="#4c8dce"
+          />
         </div>
       </div>
     </div>
