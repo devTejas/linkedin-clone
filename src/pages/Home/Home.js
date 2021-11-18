@@ -17,9 +17,7 @@ const Home = () => {
           <AppFeed />
         </div>
         {/* // Widgets */}
-        <div className="rightSideBar">
-          <Widgets />
-        </div>
+        <div className="rightSideBar">{/* <Widgets /> */}</div>
       </div>
     </div>
   );

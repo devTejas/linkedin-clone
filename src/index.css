@@ -25,7 +25,7 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   background-color: rgba(200, 200, 200, 0.2);
-  background-color: #9d4edd;
+  /* background-color: #9d4edd; */
   overflow-x: hidden;
 }
 

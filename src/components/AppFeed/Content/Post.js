@@ -4,7 +4,6 @@ import {
   Create,
   Delete,
   FileCopyRounded,
-  Message,
   ThumbUp,
 } from "@material-ui/icons";
 import React, { useEffect, useState } from "react";
@@ -188,14 +187,14 @@ const Post = ({ postContent }) => {
               Icon={ThumbUp}
               title="Likes"
               value={postLikes}
-              color="#4c8dce"
+              // color="#4c8dce"
             />
           )}
-          <PostActionOption Icon={Message} title="Comment" color="#4c8dce" />
+          {/* <PostActionOption Icon={Message} title="Comment" color="#4c8dce" /> */}
           <PostActionOption
             Icon={FileCopyRounded}
             title={!textCopied ? `Copy` : `Text Copied!`}
-            color="#4c8dce"
+            // color="#4c8dce"
           />
         </div>
       </div>
